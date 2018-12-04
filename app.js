@@ -8,4 +8,4 @@ $('#header').attr("class","top");
 
 $("#inputArea button").on("click",function(){
     alert("我被點擊了");
-})i
+});
