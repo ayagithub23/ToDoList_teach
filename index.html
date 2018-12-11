@@ -8,22 +8,23 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous">
 </script>
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
 </head>
 <body>
     <!-- 網頁標題 -->
-    <div id="header">代辦事項清單</div>
+    <div id="header">待辦事項清單</div>
     <!-- 代辦事項輸入及顯示區域 -->
-    <div id="main">
-        <p>請輸入代辦事項</p>
-        <h1>我的代辦事項</h1>
-        <form id="inputArea" action="">
-            <input type="text" placeholder="請輸入代辦事項">
-            <button>輸入</button>
-        </form>
+    <form id="main">
+        <p>請輸入待辦事項</p>
+        <h1>我的待辦事項</h1>
+        <div id="inputArea" action="">
+            <input id="addTodoInput" type="text" name="newTodo" placeholder="請輸入待辦事項">
+            <button id="addTodoBtn">輸入</button>
+        </div>
         <ul>
-            <li>代辦事項1</li>
+            <li>待辦事項1</li>
         </ul>
-    </div>
+    </form>
     <script src="./app.js"></script>
 </body>
 </html>
