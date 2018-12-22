@@ -13,17 +13,16 @@
 <body>
     <!-- 網頁標題 -->
     <div id="header">待辦事項清單</div>
-    <!-- 代辦事項輸入及顯示區域 -->
-    <form id="main">
-        <p>請輸入待辦事項</p>
-        <h1>我的待辦事項</h1>
-        <div id="inputArea" action="">
-            <input id="addTodoInput" type="text" name="newTodo" placeholder="請輸入待辦事項">
-            <button id="addTodoBtn">輸入</button>
-        </div>
-        <ul>
-            <li>待辦事項1</li>
-        </ul>
+    <form id="inputArea" action="">
+        <input id="addTodoInput" type="text" placeholder="請輸入待辦事項">
+        <button id="addTodoBtn">輸入</button>
+    </form>
+
+    <ul>
+        <li><span class="delete"><button>刪除</button></span>待辦事項1</li>
+        <li><span class="delete"><button>刪除</button></span>待辦事項2</li>
+        <li><span class="delete"><button>刪除</button></span>待辦事項3</li>
+    </ul>
     </form>
     <script src="./app.js"></script>
 </body>
