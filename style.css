@@ -1,0 +1,71 @@
+* {
+    font-family: '微軟正黑體';
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #1e5799;
+}
+
+.header {
+    font-size: 200%;
+    font-weight: bold;
+    line-height: 3;
+    text-align: center;
+    text-indent: 16px;
+    color: #fff;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    box-sizing: border-box;
+    max-width: 500px;
+    margin: 0 auto;
+    transform: translate(-50%, -50%);
+    background: #fff;
+}
+
+h1 {
+    line-height: 2;
+    text-align: center;
+    color: #fff;
+    background: blue;
+}
+
+form {
+    padding: 10px;
+}
+
+input {
+    line-height: 3.5;
+    width: 78%;
+    padding: 0 5px;
+    border: 1px solid blue;
+}
+
+#addTodoBtn {
+    float: right;
+    padding: 15px 8px;
+    color: #fff;
+    border: unset;
+    background: blue;
+}
+
+.delete {
+    padding: 8px;
+    color: #fff;
+    border: unset;
+    background: red;
+}
+
+ul {
+    padding: 10px;
+}
+
+li {
+    padding: 5px 0;
+    list-style-type: none;
+}
