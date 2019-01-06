@@ -61,39 +61,112 @@ var todoData = [
     }
 ];
 
+var errorMsgData = "";
+
+
 console.log(todoData);
-function render(todoData){
+function render(todoData,newTodoText,isInitial){
     moment.locale('zh-tw');
-    // [2018-12-22] 02. 測試抓取物件是否真的印在ul li上。
+    // 驗證輸入的方式(包括什麼都沒輸入 以及重複輸入)
+    // if(!newTodoText) return;
+    // 傳進 var newTodoText 一樣
+    if(!isInitial){
+        var isValid = validate(newTodoText);
+    }else{
+        var isValid = true;
+    }
 
-    // $("ul").append(`<li>${todoData[0].content}  ${moment().format('llll')}</li>`);
-    // for(var i = 0; i<= todoData.length; i++){
-    //     $("ul").append(`<li>${todoData[i].content} ${moment().format('llll')}</li>`);
-    // }
-    // 要問JOHN為什麼要這樣輸入HTML UL
-      var HTML = "";
-      var $ul = $("ul");
-    // [2018-12-22] 04. 建立迴圈，因為寫成i<=todoData.length，導致找不到資料，會出問題
-    // [2018-12-22] app.js:32 Uncaught TypeError: Cannot read property 'content' of undefined at render
-    for(var i = 0; i < todoData.length; i++){
-        // [2018-12-22] 如果輸入i變數的情況下
+    var $addTodoInput = $("#addTodoInput");
+    if(isValid){
+        var HTML = "";
+        var $ul = $("ul");
+        // [2018-12-22] 04. 建立迴圈，因為寫成i<=todoData.length，導致找不到資料，會出問題
         // [2018-12-22] app.js:32 Uncaught TypeError: Cannot read property 'content' of undefined at render
-        // [2018-12-22] 04. 其實我也可以這樣做
-        // $("ul").append(`<li><span class="delete"><button>刪除</button></span>${todoData[i].content} ${moment().format('llll')}</li>`);
-        // [2018-12-22] X錯誤 [2018-12-22] 04. 如果加了兩個點點"delete"按鈕樣式會不見。
-        HTML = HTML +
-        `<li id="${todoData[i].id}"><span><button class="delete">刪除</button></span>
+        for(var i = 0; i < todoData.length; i++){
+            // [2018-12-22] 如果輸入i變數的情況下
+            // [2018-12-22] app.js:32 Uncaught TypeError: Cannot read property 'content' of undefined at render
+            // [2018-12-22] 04. 其實我也可以這樣做
+            // $("ul").append(`<li><span class="delete"><button>刪除</button></span>${todoData[i].content} ${moment().format('llll')}</li>`);
+            // [2018-12-22] X錯誤 [2018-12-22] 04. 如果加了兩個點點"delete"按鈕樣式會不見。
+            HTML = HTML +
+            `<li id="${todoData[i].id}"><span><button class="delete">刪除</button></span>
 
-        ${todoData[i].content}
-        ${moment().format('llll')}
-        </li>`
-        // [2018-12-22] 不懂 CREATEAT ${moment(todoData[i].createdAt).format("MM/DD hh:mm")}
-    };
-     // [2018-12-22] 08. 清空畫面，如果沒有輸入，會多出一模一樣的東西
-     $("ul").empty();
-     $ul.append(HTML);
+            ${todoData[i].content}
+            ${moment().format('llll')}
+            </li>`
+            // [2018-12-22] 不懂 CREATEAT ${moment(todoData[i].createdAt).format("MM/DD hh:mm")}
+        };
+        $("ul").empty();
+        $errorMsgData = "";
+        $ul.append(HTML);
+    }else{
+        var $errorMsg = $("#errorMsg");
+        $errorMsg.append(errorMsgData);
+    
+    }
+     $addTodoInput.val("");
+
+     $errorMsgData = "";
 }
-render(todoData);
+
+function validate(newTodoText){
+    var isValid = true;
+
+    // 驗證資料，若資料合法回傳true;
+    // 第一關，驗證是否空值，若是者把isVailid改false
+    // 三元運算子
+    // isValid = newTodoText ? ture : false;
+    // var a = 1+1===2 ? "正確" : "錯誤";
+    // var a;
+    // if(1+1===2){
+    //     a = "正確";
+    // }else{
+    //     a = "錯誤";
+    // }
+    if(!newTodoText){
+        errorMsgData = "請輸入內容";
+    }
+
+
+
+    // 第二關，驗證是否重複，若是者把isVailid改false
+    // forEach 只能用在陣列上
+    // forEach 無法中斷
+    // todoData.forEach(function(eachTodo){
+        // if(eachTodo.content===newTodoText){
+        //     isValid = false;
+        // }
+    // });
+    for(var i = 0 ; i<todoData.length;i++){
+        if(todoData[i].content ===  newTodoText){
+            isValid = false;
+            errorMsgData = "重複輸入";
+            return;
+        }
+    }
+
+
+
+    // 若資料不合法，回傳false
+
+
+    return isValid;
+
+
+};
+// function renderErr(){
+//     // error message render 到 ui 上
+//     // var 我的 UI
+//     var $errorMsg = $("#errorMsg");
+//     var $addTodoInput = $("#addTodoInput");
+//     $addTodoInput.val("");
+//     $errorMsg.append(errorMsgData);
+//     errorMsgData = "";
+
+// }
+
+
+render(todoData,"",true);
 
 
 
@@ -115,7 +188,16 @@ $("#addTodoBtn").on("click",function(){
     // 中文化
     moment.locale('zh-tw');
     // [2018-12-22] 05. 如果沒在 addTodoInput 輸入資料的話，那就不會出現LI，順序很重要，不能夠再APPEND下面，否則這功能會失效。
-    if(!newTodoText) return;
+
+    // if(!isValid){
+    //     renderErr();
+    //     return;
+    // }
+
+
+
+
+
 
 
 
@@ -146,13 +228,9 @@ $("#addTodoBtn").on("click",function(){
 
 
     // [2018-12-22] 09. 執行函數，這樣才會在HTML上出現
-    render(todoData);
+    render(todoData,newTodoText,false);
     //  $("ul").append(`<li>${newTodoText} ${moment().format('llll')}</li>`);
-
-
-
- 
-    $addTodoInput.val("");
+    // $addTodoInput.val("");
 });
 // https://momentjs.com/
 // moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -169,5 +247,5 @@ $("ul").on("click", ".delete", function(){
         if(todo.id === idToDelete) return false;
         else return true;
     });
-    render(todoData);
+    render(todoData,"",false);
 });
