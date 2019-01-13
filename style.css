@@ -37,12 +37,17 @@ h1 {
 
 form {
     padding: 10px;
+    display: flex;
 }
-
+form input{
+    flex-grow: 3;
+}
+form button{
+    flex-grow: 1;
+}
 input {
     line-height: 3.5;
-    width: 78%;
-    padding: 0 5px;
+    padding: 2px;
     border: 1px solid blue;
 }
 
